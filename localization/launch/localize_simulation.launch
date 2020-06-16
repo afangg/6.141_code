@@ -1,0 +1,11 @@
+<launch>
+  <node pkg="localization" type="particle_filter.py" name="particle_filter" output="screen">
+    <rosparam command="load" file="$(find localization)/params.yaml"/>
+    <param name="particle_filter_frame" value="/base_link_pf"/>
+    <param name="map_topic" value="/map"/>
+    <param name="scan_topic" value="/scan"/>
+    <param name="odom_topic" value="/odom"/>
+    <param name="angle_step" value="1"/>
+    <param name="num_beams_per_particle" value="100"/>
+  </node>
+</launch>
