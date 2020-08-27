@@ -1,0 +1,22 @@
+<launch>
+
+<!--	<node pkg="path_planning" type="pure_pursuit.py" name="pure_pursuit" output="screen"> -->
+<!--		<param name="odom_topic" value="/tesse/odom"/> -->
+<!--	<param name="drive_topic" value="/tesse/drive"/> -->
+<!--	<param name="imu_topic" value="/tesse/imu"/> -->
+<!--	</node> -->
+
+        <include file="$(find tesse_ros_bridge)/launch/tesse_bridge.launch"/>
+	<include file= "$(find localization-solution)/launch/localize_tesse.launch"/>
+	<include file= "$(find path_planning)/launch/follow_trajectory.launch"/>
+	<include file= "$(find path_planning)/launch/load_trajectory.launch"/>	
+	
+	<node pkg="safety_controller" type="safety_controller.py" name="safety_controller" output="screen">
+            <param name="drive_intercept_topic" value="/tesse/drive"/>
+	    <param name="safety_topic" value="/tesse/drive"/>
+            <param name="scan_topic" value="/tesse/hood_lidar/scan"/>
+	</node>
+	
+
+</launch>
+

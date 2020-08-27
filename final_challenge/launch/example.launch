@@ -1,0 +1,9 @@
+<launch>
+  <!-- Maps and TESSE simulator interface -->
+  <include file="$(find final_challenge)/launch/maps.launch"/>
+  <include file="$(find tesse_ros_bridge)/launch/tesse_bridge.launch"/>
+
+  <!-- Other things you may want to launch -->
+  <include file="$(find localization)/launch/localize.launch"/>
+  <include file="$(find path_planning)/launch/plan.launch"/>
+</launch>

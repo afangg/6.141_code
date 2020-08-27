@@ -1,0 +1,23 @@
+<launch>
+  <include file="$(find tesse_ros_bridge)/launch/tesse_bridge.launch"/>
+
+  <node pkg="localization-solution" type="particle_filter.py" name="particle_filter" output="screen">
+    <rosparam command="load" file="$(find localization-solution)/params.yaml"/>
+    <param name="particle_filter_frame" value="/hood_lidar"/>
+    <param name="map_topic" value="/map"/>
+    <param name="lidar_scale_to_map_scale" value="5.0"/>
+    <param name="scan_topic" value="/tesse/hood_lidar/scan"/>
+    <param name="odom_topic" value="/tesse/odom"/>
+    <param name="angle_step" value="11"/>
+    <param name="num_beams_per_particle" value="99"/>
+  </node>
+
+  <node pkg="final_challenge" type="fast_obstacle.py" name="fast_obstacle" output="screen"> </node>
+
+	<node pkg="safety_controller" type="safety_controller.py" name="safety_controller" output="screen">
+            <param name="drive_intercept_topic" value="/tesse/drive"/>
+	    <param name="safety_topic" value="/tesse/drive"/>
+            <param name="scan_topic" value="/tesse/hood_lidar/scan"/>
+	</node>
+
+</launch>
